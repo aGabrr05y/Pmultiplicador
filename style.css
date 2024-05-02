@@ -5,7 +5,7 @@ body {
     height: 100vh;
     align-items: center;
     text-align: center;
-    background-color: yellow;
+    background-image:radial-gradient(rgb(0, 255, 136), rgb(0, 183, 255));
     font-family: cursive;
 }
 
@@ -24,8 +24,8 @@ body {
     font-size: 30px;
     text-align: center;
     padding: 10px;
-    border: solid 4px green;
-    color: green;
+    border: solid 4px rgb(5, 180, 180);
+    color: rgb(5, 180, 180);
 }
 
 .input::placeholder {
@@ -34,7 +34,7 @@ body {
 }
 
 .btn {
-    background-color: green;
+    background-color: rgb(5, 180, 180);
     color: white;
     border: none;
     display: block;
@@ -53,6 +53,6 @@ body {
 }
 
 .score {
-    color: green;
+    color: rgb(5, 180, 180);
     text-align: right;
 }
