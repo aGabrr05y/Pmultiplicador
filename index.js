@@ -1,44 +1,50 @@
-//CONECTAMOS LA VARIABLES CON HTML Y CREAMOS UNA ARCHIVO JASON PARA ALMACENAR LA INFORMACION EN LOCALSTORAGE
-const pregunta = document.getElementById("question");
-const inputt = document.getElementById("input").value;
-const formulario = document.getElementsByName ("form");
-const puntaje = document.getElementById("score");
+// CONTANDO ELEMENTOS DE HTML CON JAVASCRIPT
+const pregunta = document.getElementById ("question");
+const entrada = document.getElementById("input")
+const formulario = document.getElementById ("form")
+const puntaje = document.getElementById("score")
 const respuesta = document.getElementById("respuesta")
-let contadorDePuntos = JSON.parse(localStorage.getItem("score"));
+// CREAMOS UN ALMACENAMIENTO LOCAL PARA EL PUNTAJE 
+let score = JSON.parse(localStorage.getItem("score"))
 
 
-if (!contadorDePuntos) {
-    contadorDePuntos = 0;
-    }
-// CREAMOS 2 VARIABLES QUE ALMACENARAN UN NUMERO RANDOM DEL 0 AL 15
-let numero1 = Number(Math.floor (Math.random() * 15));
-let numero2 = Number(Math.ceil (Math.random() * 15));
-
-//CREAMOS UNA VARIABLE QUE HACE UNA OPERACION MULTIPLICANDO AMBOS NUMEROS RANDOM Y ALMACENANDOLO EN UNA NUEVA VARIABLE
-let operacion = numero1 * numero2;
-let respuesta_correcta = operacion;
-
-//COMPARAMOS EL RESULTADO CON EL INPUT DEL USUARIO PARA VERIFICAR SI LA RESPUESTA ES CORRECTA
-pregunta.innerText = `¿Cuanto es ${numero1} por ${numero2}?`;
-respuesta.innerText = `La respuesta es ${respuesta_correcta}`;
-
-
-//CONVERTIR EL INPUT DE HTML DE STR A NUMBER
-let respuestaDeUsuario = +inputt;
-
-//FUNCION PARA COMPARAR  LA RESPUESTA DEL USUARIO CON LA RESPUESTA CORRECTA Y AÑADIRLO AL SCORE 
-function vericadorDeRespuesta (){
-    if (respuesta_correcta == respuestaDeUsuario) {
-        ++contadorDePuntos;
-        updateLocalStorage();
-    }else {
-        contadorDePuntos--;
-        updateLocalStorage();
-    }    
+// VALIDAMOS SI DENTRO DE SCORE NO HAY NADA ENTONCES SCORE SE VUELVE 0
+if (!score) {
+    score=0;
 }
 
-formulario.addEventListener ("submit" , vericadorDeRespuesta())
+// CREMOS DOS VARIABLES QUE ALMACENAN DOS NUMEROS ALEATORIOS PARA LUEGO MULTIPLICARLO
+let num1 = Math.ceil (Math.random() * 15);
+let num2 = Math.ceil (Math.random () * 15);
+const resCorrecta = num1 * num2; 
 
-function updateLocalStorage() {
-    localStorage.setItem("score", JSON.stringify(contadorDePuntos));
+// CONECTAMOS EL SCORE DE HTML PARA QUE REFLEJE EL PUNTAJE ALMACENADO EN JSON 
+puntaje.innerText = `Score ${score}`
+
+//CONTECTAMOS CON HTML PARA MODIFICAR LOS MULTIPLICADORES
+pregunta.innerText = `Cuanto es ${num1} multiplicado ${num2}`
+
+//PRUEBA PARA SABER LA RESPUESTA CORRECTA - ELIMINAR CUANDO SEA NECESARIO
+respuesta.innerText = `Respuesta = ${resCorrecta}`
+
+/* CREAMOS UNA FUNCION QUE REVISA SI LA RESPUESTA ES CORRECTA 
+Y CONECTA SUBMIT CON LA VALIDACION*/
+formulario.addEventListener ("submit", () => {
+    const usuario = +entrada.value;
+    if ( usuario === resCorrecta){
+    score++;
+    updateLocalStorage();
+}
+    else {
+        score--;
+        updateLocalStorage();
     }
+
+})
+
+//CREAMOS UNA FUNCION QUE NOS PERMITE ACTUALIZAR EL ALMACENAMIENTO INTERNO Y LO REFLEJA EN LA VARIABLE SCORE 
+function updateLocalStorage() {
+    localStorage.setItem("score", JSON.stringify(score));
+    }
+    
+
